@@ -1,6 +1,7 @@
 # MERNProject1
 
-Installed express 
+Installed 
+express - backend web framework 
 dotenv - for environment variables
 mongoose 
 colors
