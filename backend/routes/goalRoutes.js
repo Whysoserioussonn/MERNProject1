@@ -1,24 +1,22 @@
 const express =  require('express')
 const router = express.Router()
+const {getGoals, setGoal, updateGoal, deleteGoal}= require('../controllers/goalController')  
 
 //read a goal
-router.get('/', (req,res) => {
-  res.status(200).json({message: 'Get goals'})
-})
+// router.get('/', (req,res) => {
+//   res.status(200).json({message: 'Get goals'})
+// })
+// replace 2nd paramater with function getGoals after importing from controllers , test with POSTMAN get request http://localhost:5000/api/goals/
+router.get('/', getGoals)
+
 // create a goal, use post request
-router.post('/', (req,res) => {
-  res.status(200).json({message: 'Set goal'})
-})
+router.post('/', setGoal)
 
 //update a goal, use put request with an id as the param , add :id to route
-router.put('/:id', (req,res) => {
-  res.status(200).json({message: `Update Goal: ${req.params.id}`})
-})
+router.put('/:id', updateGoal)
 
 //Delete a goalm use delete request with an id as the param, add :id to route
-router.delete('/:id', (req,res) => {
-  res.status(200).json({message: `Delete Goal: ${req.params.id}`})
-})
+router.delete('/:id', deleteGoal)
 
 
 module.exports = router
