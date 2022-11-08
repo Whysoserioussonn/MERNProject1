@@ -1,6 +1,9 @@
+// We have our functions in the controller : getGoals which just fetches them from MongoDO using mongoose, setGoal, updateGoal,deleteGoal
+
+
 const asyncHandler = require('express-async-handler')   // wrap around each entiere async function
 
-const Goal = require('../models/goalModal')
+const Goal = require('../models/goalModel')
 
 // @ desc Get Goals
 // @route GET /api/goals

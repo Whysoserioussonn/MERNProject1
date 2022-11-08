@@ -14,7 +14,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-
+// we have our api goals going to our goalRoutes
 app.use('/api/goals', require('./routes/goalRoutes'))
 
 app.use(errorHandler)

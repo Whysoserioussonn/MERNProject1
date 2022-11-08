@@ -1,4 +1,5 @@
 // all middleware is functions that execute during the request /response cycle
+// created a custom error handler 
 
 const { restart } = require("nodemon")
 

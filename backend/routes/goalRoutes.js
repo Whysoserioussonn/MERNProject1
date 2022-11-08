@@ -1,6 +1,7 @@
 const express =  require('express')
 const router = express.Router()
-const {getGoals, setGoal, updateGoal, deleteGoal}= require('../controllers/goalController')  
+const {getGoals, setGoal, updateGoal, deleteGoal}= require('../controllers/goalController')  // bringing functions from controller and setting it to endpoints /, /:id
+
 
 //read a goal
 // router.get('/', (req,res) => {
@@ -15,7 +16,7 @@ router.post('/', setGoal)
 //update a goal, use put request with an id as the param , add :id to route
 router.put('/:id', updateGoal)
 
-//Delete a goalm use delete request with an id as the param, add :id to route
+//Delete a goal, use delete request with an id as the param, add :id to route
 router.delete('/:id', deleteGoal)
 
 
