@@ -17,6 +17,9 @@ app.use(express.urlencoded({extended: false}))
 // we have our api goals going to our goalRoutes
 app.use('/api/goals', require('./routes/goalRoutes'))
 
+// we have our api users going to our userRoutes
+app.use('/api/users', require('./routes/userRoutes'))
+
 app.use(errorHandler)
 
 
