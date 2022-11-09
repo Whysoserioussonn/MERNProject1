@@ -15,3 +15,7 @@ dev dependency nodemon - tool to constantly watch our js file so we dont have to
 npx create-react-app frontend --template redux       - installs react with redux template
 
 
+#Helpful Visual Studio Snippets
+
+ES7+React/Redux/React-Native snippet    - to use rfce that exports on bottom
+
