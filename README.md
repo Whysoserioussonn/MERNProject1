@@ -1,6 +1,6 @@
 # MERNProject1
 
-## Installed Frontend
+## Installed Backend
 express - backend web framework 
 dotenv - for environment variables
 mongoose 
@@ -11,8 +11,9 @@ jsonwebtoken - to deal with json webtokens
 
 dev dependency nodemon - tool to constantly watch our js file so we dont have to restart it
 
-## Installed Backend
+## Installed Frontend
 npx create-react-app frontend --template redux       - installs react with redux template
+npm i react-router-dom       - need routes for the pages
 
 
 #Helpful Visual Studio Snippets
