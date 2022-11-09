@@ -22,8 +22,8 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already exists')
   }
   // Hash the password, need to generate a salt to hash the password by calling a bcrypt method called gensalt()
-  const salt = await bcyrpt.genSalt(10)
-  const hashedPassword = await bcyrpt.hash(password, salt)
+ const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(password, salt)
 
   //Create user
   const user = await User.create({
@@ -35,7 +35,8 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      token: generateToken(user._id)  // along with user data that we pass back, also pass back a token which is called generateToken and pass in user._id, so the user that we register just passing the id into the generate token function, do the same thing for login
     })
   } else {
     res.status(400)
@@ -56,7 +57,8 @@ const loginUser = asyncHandler (async (req,res) => {
     res.json({
       _id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      token: generateToken(user._id)
     })    
   }  else {
     res.status(400)
@@ -66,10 +68,18 @@ const loginUser = asyncHandler (async (req,res) => {
 
 // @ desc Get user data
 // @route GET /api/users/me
-// @access Public
+// @access private
 const getMe = asyncHandler (async (req,res) => {
   res.json({message: 'Display User Data'})
 })
+
+//Generate JWT token, takes user's id as the payload 
+//this will sign a new token with the id thats passed in, with this secret used, and expire in 30 days
+const generateToken = (id) => {
+  return jwt.sign({id}, process.env.JWT_SECRET, {
+    expiresIn: '30d'
+  })
+}
 
 module.exports = {
   registerUser,
