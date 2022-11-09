@@ -14,7 +14,11 @@ dev dependency nodemon - tool to constantly watch our js file so we dont have to
 ## Installed Frontend
 npx create-react-app frontend --template redux       - installs react with redux template
 npm i react-router-dom       - need routes for the pages
+npm i react-icons
 
+## Installed Tailwind CSS framework for Frontend
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
 
 #Helpful Visual Studio Snippets
 
