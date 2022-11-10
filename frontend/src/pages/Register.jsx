@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"; // use useState for form fields, each with a component level state
-import { FaUser } from "react-icons/fa";
+import { FaUserSecret } from "react-icons/fa";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -10,15 +10,21 @@ function Register() {
   });
 
    const { name, email, password, password2 } = formData
-  const onChange = () => {}
+  // create onChange to allow user to type in textfields
+   const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
+  }
   const onSubmit = (e) => {
     e.preventDefault()
   }
   return (
     <>
-      <section className="heading">
+      <section className='heading'>
         <h1>
-          <FaUser /> Register
+          <FaUserSecret /> Register
         </h1>
         <p> Please create an account</p>
       </section>
@@ -73,6 +79,7 @@ function Register() {
           <button type="submit" class="bg-blue-600 py-3 px-80 hover:invert text-white font-medium ">
               Submit
             </button>
+            
           </div>
         </form>
       </section>
@@ -81,6 +88,6 @@ function Register() {
 }
 
 export default Register
-{/*  <button type="submit" class="bg-blue-600 py-3 px-80 hover:invert text-white font-medium "></button>  */}
+
 
 
