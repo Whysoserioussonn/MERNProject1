@@ -16,7 +16,8 @@ npm i-D concurrently   - to run backend and frontend at same time instead of ope
 npx create-react-app frontend --template redux       - installs react with redux template
 npm i react-router-dom       - need routes for the pages
 npm i react-icons
-
+npm i axios              - to send async HTTP requests to to REST endpoints, used to communicate with backend. 
+npm i react-toastify      -show error alerts and success alerts in a toast
 ## Installed Tailwind CSS framework for Frontend
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p

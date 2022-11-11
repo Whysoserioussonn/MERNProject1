@@ -1,7 +1,8 @@
 // this where our reducers and our initial state go that pertain to our authentication
 // we are going to have a register, login, and logout that will clear local storage
 
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'  // thunk for synchronous function and then update your state with what you get back from server
+import {createSlice, createAsyncThunk, isFulfilled} from '@reduxjs/toolkit'  // thunk for synchronous function and then update your state with what you get back from server
+import authService from './authService'
 
 // when user log in we get back a json token to access protected routes so we going to save it to local storage
 //Get user from local storage, local storage has strings so want to parse it, then we can get it with localstorage.getItem, and the item we looking for is user
@@ -16,6 +17,44 @@ const initialState = {
   isLoading: false, // to show a spinner animation effect
   message: ''
 }
+
+// Register user
+export const register = createAsyncThunk(
+  'auth/register',
+  async (user, thunkAPI) => {
+    try {
+      return await authService.register(user)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+// Login user
+export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+  try {
+    return await authService.login(user)
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+
+//Logout user
+export const logout = createAsyncThunk('auth/logout', async () => {
+  await authService.logout()
+})
+
+
 // create actual slice, store it in export variable authSlice and set this createslice which we brought it above
 // and that gets passed in an object, and in this object we are going to have a 
 // name for our slice called auth
@@ -31,9 +70,42 @@ export const authSlice = createSlice({
       state.isSuccess = false
       state.isError = false
       state.message = ''
-    }
+    },
   },
-  extraReducers: () => {}
+  extraReducers: (builder) => {
+    builder
+    .addCase(register.pending, (state) => {
+      state.isLoading = true
+    })
+    .addCase(register.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.isSucesss = true
+      state.user = action.payload
+    })
+    .addCase(register.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.message = action.payload
+      state.user = null
+    })
+    .addCase(login.pending, (state) => {
+      state.isLoading = true
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.isSucesss = true
+      state.user = action.payload
+    })
+    .addCase(login.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.message = action.payload
+      state.user = null
+    })
+    .addCase(logout.fulfilled, (state) => {
+      state.user = null
+    })
+  },
 })
 
 export const {reset} = authSlice.actions   // so we can bring reset to our components 

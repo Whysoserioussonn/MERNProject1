@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react"; // use useState for form fields, each with a component level state
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FaUserSecret } from "react-icons/fa";
+import { register, reset } from "../features/auth/authSlice";
+import Spinner from "../components/Spinner";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -9,24 +14,62 @@ function Register() {
     password2: "", // to confirm password (confirmation)
   });
 
-   const { name, email, password, password2 } = formData
+  const { name, email, password, password2 } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+
+    if (isSuccess || user) {
+      navigate('/')
+    }
+
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
   // create onChange to allow user to type in textfields
-   const onChange = (e) => {
+  const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }))
   }
+
   const onSubmit = (e) => {
     e.preventDefault()
+
+    if (password !== password2) {
+      toast.error('Passwords do not match')
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      }
+
+      dispatch(register(userData))
+    }
   }
+
+  if (isLoading) {
+    return <Spinner />
+  }
+
   return (
     <>
       <section className='heading'>
         <h1>
           <FaUserSecret /> Register
         </h1>
-        <p> Please create an account</p>
+        <p>Please create an account</p>
       </section>
 
       <section className='form'>
@@ -76,10 +119,9 @@ function Register() {
             />
           </div>
           <div className='form-group'>
-          <button type="submit" class="bg-blue-600 py-3 px-80 hover:invert text-white font-medium ">
+            <button type='submit' className='btn btn-block'>
               Submit
             </button>
-            
           </div>
         </form>
       </section>
@@ -88,6 +130,3 @@ function Register() {
 }
 
 export default Register
-
-
-
