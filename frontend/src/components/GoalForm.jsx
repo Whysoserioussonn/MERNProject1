@@ -11,7 +11,7 @@ function GoalForm() {
     e.preventDefault()
 
     dispatch(createGoal({ text }))
-    setText('')   // to clear the form
+    setText('')
   }
 
   return (

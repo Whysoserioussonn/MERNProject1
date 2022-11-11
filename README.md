@@ -28,4 +28,3 @@ Redux devtools
 #Helpful Visual Studio Snippets
 
 ES7+React/Redux/React-Native snippet    - to use rfce that exports on bottom
-

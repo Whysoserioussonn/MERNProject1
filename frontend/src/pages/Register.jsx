@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react"; // use useState for form fields, each with a component level state
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { FaUserSecret } from "react-icons/fa";
-import { register, reset } from "../features/auth/authSlice";
-import Spinner from "../components/Spinner";
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { FaUser } from 'react-icons/fa'
+import { register, reset } from '../features/auth/authSlice'
+import Spinner from '../components/Spinner'
 
 function Register() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "", // to confirm password (confirmation)
-  });
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+  })
 
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, password2 } = formData
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
-  );
+  )
 
   useEffect(() => {
     if (isError) {
@@ -35,7 +35,6 @@ function Register() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  // create onChange to allow user to type in textfields
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -67,7 +66,7 @@ function Register() {
     <>
       <section className='heading'>
         <h1>
-          <FaUserSecret /> Register
+          <FaUser /> Register
         </h1>
         <p>Please create an account</p>
       </section>

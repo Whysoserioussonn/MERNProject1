@@ -1,6 +1,5 @@
 // service file for actual http requests i.e POST, GET  and sending the databack
 // and setting any data in local storage
-
 import axios from 'axios'
 
 const API_URL = '/api/users/'

@@ -6,4 +6,4 @@ function Spinner() {
   )
 }
 
-export default Spinner   // import Spinner to Register.jsx
+export default Spinner
